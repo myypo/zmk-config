@@ -5,6 +5,7 @@
 modules
 firmware
 zmk
+.ccls-cache
 # Ignore keymap-drawer output for now
 draw/base.svg
 draw/base.yaml
