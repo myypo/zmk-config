@@ -12,9 +12,9 @@
 #define COMBO_IDLE_FAST 150
 
 /* Horizontal combos - left hand */
-ZMK_COMBO(lret,  &kp RET,      LM2 LM1,     DEF NAV SYM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(lesc,  &kp ESC,      LM2 LM1,     DEF NAV SYM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
 ZMK_COMBO(tab,   &kp TAB,      LM2 LM3,     DEF NAV SYM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
 
 /* Horizontal combos - right hand */
-ZMK_COMBO(rret,  &kp RET,      RM1 RM2,     DEF NAV SYM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(resc,  &kp ESC,      RM1 RM2,     DEF NAV SYM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
 ZMK_COMBO(bsdl,  &bsdl,        RM2 RM3,     DEF NAV SYM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
