@@ -4,6 +4,7 @@
 .west
 modules
 firmware
+zephyr
 zmk
 .ccls-cache
 # Ignore keymap-drawer output for now
