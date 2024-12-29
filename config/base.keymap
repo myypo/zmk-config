@@ -1,4 +1,5 @@
 #include <behaviors.dtsi>
+#include <behaviors/num_word.dtsi> // requires auto-layer module
 #include <dt-bindings/zmk/keys.h>
 #ifdef CONFIG_WIRELESS
     #include <dt-bindings/zmk/bt.h>
@@ -9,12 +10,15 @@
 
 #include "zmk-helpers/helper.h"
 
+#include "keys_uk_enhanced.h"
+
 #define DEF 0
-#define NAV 1
-#define SYM 2
-#define FN 3
-#define SYS 4
-#define MOUSE 5
+#define UKR 1
+#define NAV 2
+#define SYM 3
+#define FN 4
+#define SYS 5
+#define MOUSE 6
 
 #define XXX &none
 #define ___ &trans
@@ -51,9 +55,9 @@
 #define MAKE_HRM(NAME, HOLD, TAP, TRIGGER_POS) \
     ZMK_HOLD_TAP(NAME, \
         flavor = "balanced"; \
-        tapping-term-ms = <280>; \
+        tapping-term-ms = <400>; \
         quick-tap-ms = <QUICK_TAP_MS>; \
-        require-prior-idle-ms = <150>; \
+        require-prior-idle-ms = <200>; \
         bindings = <HOLD>, <TAP>; \
         hold-trigger-key-positions = <TRIGGER_POS>; \
         hold-trigger-on-release; \
@@ -84,12 +88,6 @@ ZMK_MACRO(swallow_caps_word,
     bindings = <&kp F22 &caps_word>;
 )
 #define CAPS_WORD &swallow_caps_word
-
-ZMK_TRI_STATE(smart_mouse,
-    bindings = <&tog MOUSE>, <&none>, <&tog MOUSE>;
-    ignored-key-positions = <LT1 LT3 RT0 RT1 RT2 RT3 RT4 RM1 RM2 RM3 RB1 RB2 RB3 RH0 RH1>;
-    ignored-layers = <MOUSE>;
-)
 
 /* Custom behaviors */
 / {
@@ -154,13 +152,55 @@ SIMPLE_MORPH(bsdl, SFT, &kp BSPC, &kp DEL)
 // tap: " | shift + tap: '
 SIMPLE_MORPH(dsqt, SFT, &kp DQT, &kp SQT)
 
-SIMPLE_MORPH(canc_shft, SFT, &sk LSHFT, CANCEL)
-
-SIMPLE_MORPH(nav_spc, SFT, &lt 1 SPACE, &swallow_num_word)
+SIMPLE_MORPH(nav_spc, SFT, &lt NAV SPACE, &swallow_num_word)
 
 /* Conditional layers */
 
 ZMK_CONDITIONAL_LAYER(sys, FN NAV, SYS)  // FN + NAV --> SYS
+
+/* Ukrainian language */
+
+#define CYR_EF       &kp UK_CYRILLIC_EF
+#define CYR_VE       &kp UK_CYRILLIC_VE
+#define CYR_YA       &kp UK_CYRILLIC_YA
+#define CYR_PE       &kp UK_CYRILLIC_PE
+#define CYR_BE       &kp UK_CYRILLIC_BE
+#define CYR_SHORT_I  &kp UK_CYRILLIC_SHORT_I
+#define CYR_EL       &kp UK_CYRILLIC_EL
+#define CYR_U        &kp UK_CYRILLIC_U
+#define CYR_I        &kp UK_CYRILLIC_I
+#define UKR_IE       &kp UK_UKRAINIAN_IE
+#define CYR_A        &kp UK_CYRILLIC_A
+#define CYR_ER       &hml LALT UK_CYRILLIC_ER
+#define CYR_ES       &hml LGUI UK_CYRILLIC_ES
+#define CYR_TE       &hml LCTRL UK_CYRILLIC_TE
+#define CYR_GHE      &kp UK_CYRILLIC_GHE
+#define CYR_EM       &kp UK_CYRILLIC_EM
+#define CYR_EN       &hmr LCTRL UK_CYRILLIC_EN
+#define CYR_IE       &hmr LGUI UK_CYRILLIC_IE
+#define UKR_I        &hmr LALT UK_UKRAINIAN_I
+#define CYR_O        &kp UK_CYRILLIC_O
+#define CYR_ZE       &kp UK_CYRILLIC_ZE
+#define CYR_SOFT     &kp UK_CYRILLIC_SOFT_SIGN
+#define CYR_TSE      &kp UK_CYRILLIC_TSE
+#define CYR_DE       &kp UK_CYRILLIC_DE
+#define CYR_YU       &kp UK_CYRILLIC_YU
+#define CYR_KA       &kp UK_CYRILLIC_KA
+#define CYR_CHE      &kp UK_CYRILLIC_CHE
+#define CYR_YI       &kp UK_CYRILLIC_YI
+
+ZMK_MACRO(ukr_eng, 
+    bindings = 
+        <&macro_press &tog UKR &kp LALT>,
+        <&macro_tap &kp RALT>,
+        <&macro_pause_for_release>,
+        <&macro_release &tog UKR &kp LALT>;
+)
+SIMPLE_MORPH(comma_sha, SFT, &kp UK_COMMA, &kp UK_CYRILLIC_SHA)
+SIMPLE_MORPH(dot_shcha, SFT, &kp UK_PERIOD, &kp UK_CYRILLIC_SHCHA)
+SIMPLE_MORPH(yi_qmark, SFT, CYR_YI, &kp UK_QMARK)
+SIMPLE_MORPH(ie_sqt, SFT, UKR_IE, &kp UK_SQT)
+
 
 /* Keymap */
 
@@ -172,7 +212,19 @@ ZMK_LAYER(base,
 //├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤
     X_LB     &kp Z         &kp X         &kp C         &kp D         &kp V           X_MB     &kp K         &kp H         &kp COMMA     &kp DOT       &kp FSLH        X_RB
 //├──────┤ ╰─────────────┼─────────────┴─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┴───────────────────────────╯ ├──────┤
-    X_LH                                               &lt 3 RET     &canc_shft      X_MH     &smart_sym    &nav_spc                                                  X_RH
+    X_LH                                               &lt FN RET    &sk LSHFT       X_MH     &smart_sym    &nav_spc                                                  X_RH
+//╰──────╯                                           ╰─────────────┴─────────────╯ ╰──────╯ ╰─────────────┴─────────────╯                                           ╰──────╯
+)
+
+ZMK_LAYER(ukr,
+//╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮
+    X_LT     CYR_EF        CYR_VE        CYR_YA        CYR_PE        CYR_BE          X_MT     CYR_SHORT_I   CYR_EL        CYR_U         CYR_I         &ie_sqt         X_RT
+//├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤
+    X_LM     CYR_A         CYR_ER        CYR_ES        CYR_TE        CYR_GHE         X_MM     CYR_EM        CYR_EN        CYR_IE        UKR_I         CYR_O           X_RM
+//├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤
+    X_LB     CYR_ZE        CYR_SOFT      CYR_TSE       CYR_DE        CYR_YU          X_MB     CYR_KA        CYR_CHE       &comma_sha    &dot_shcha    &yi_qmark       X_RB
+//├──────┤ ╰─────────────┼─────────────┴─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┴───────────────────────────╯ ├──────┤
+    X_LH                                               ___           ___             X_MH     ___           ___                                                       X_RH
 //╰──────╯                                           ╰─────────────┴─────────────╯ ╰──────╯ ╰─────────────┴─────────────╯                                           ╰──────╯
 )
 
@@ -226,13 +278,13 @@ ZMK_LAYER(sys,
 
 ZMK_LAYER(mouse,
 //╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮
-    X_LT     ___           ___           ___           ___           ___             X_MT     U_WH_L        U_WH_U        U_WH_D         U_WH_R       ___             X_RT
+    X_LT     ___           ___           ___           ___           ___             X_MT     U_WH_L        U_WH_D        U_MS_U         U_WH_U       U_WH_R          X_RT
 //├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤
-    X_LM     ___           ___           ___           ___           ___             X_MM     U_MS_L        U_MS_U        U_MS_D         U_MS_R       ___             X_RM
+    X_LM     ___           ___           ___           ___           ___             X_MM     ___           U_MS_L        U_MS_D         U_MS_R       &to DEF         X_RM
 //├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤
     X_LB     ___           ___           ___           ___           ___             X_MB     ___           &mkp MB4      &mkp MCLK      &mkp MB5     ___             X_RB
 //├──────┤ ╰─────────────┼─────────────┴─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┴───────────────────────────╯ ├──────┤
-    X_LH                                               ___           ___             X_MH     &mkp LCLK     &mkp RCLK                                                 X_RH
+    X_LH                                               ___           ___             X_MH     &mkp RCLK     &mkp LCLK                                                 X_RH
 //╰──────╯                                           ╰─────────────┴─────────────╯ ╰──────╯ ╰─────────────┴─────────────╯                                           ╰──────╯
 )
 
