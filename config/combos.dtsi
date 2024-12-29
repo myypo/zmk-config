@@ -20,7 +20,7 @@ ZMK_COMBO(resc,  &kp ESC,      RM1 RM2,     DEF NAV SYM UKR, COMBO_TERM_FAST, CO
 ZMK_COMBO(bsdl,  &bsdl,        RM2 RM3,     DEF NAV SYM UKR, COMBO_TERM_FAST, COMBO_IDLE_FAST)
 
 /* Vertical combos - left hand */
-ZMK_COMBO(mous,  &tog MOUSE,   LT1 LM1,     DEF NAV SYM UKR, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(mous,  &smart_mouse, LT1 LM1,     DEF NAV SYM UKR, COMBO_TERM_FAST, COMBO_IDLE_FAST)
 
 /* Vertical combos - right hand */
 ZMK_COMBO(uke,   &ukr_eng,     RT1 RM1,     DEF NAV SYM UKR, COMBO_TERM_FAST, COMBO_IDLE_FAST)
