@@ -141,7 +141,7 @@ ZMK_MACRO(swallow_sym_word,
     bindings = <&kp F22 &sym_word SYM>;
 )
 // tap: sticky-sym | shift + tap: sym-word | hold: sym
-SIMPLE_MORPH(smart_sym, SFT, &sl SYM, &swallow_sym_word)
+SIMPLE_MORPH(smart_sym, SFT, &sl SYM, &lt SYM &swallow_sym_word)
 
 /* Other */
 
@@ -153,7 +153,7 @@ SIMPLE_MORPH(bsdl, SFT, &kp BSPC, &kp DEL)
 // tap: " | shift + tap: '
 SIMPLE_MORPH(dsqt, SFT, &kp DQT, &kp SQT)
 
-SIMPLE_MORPH(nav_spc, SFT, &lt NAV SPACE, &swallow_num_word)
+SIMPLE_MORPH(nav_spc, SFT, &lt NAV SPACE, &lt NAV &swallow_num_word)
 
 /* Conditional layers */
 
